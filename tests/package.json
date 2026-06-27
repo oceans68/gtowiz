@@ -1,0 +1,16 @@
+{
+  "name": "gto-drill-coach-static-tests",
+  "private": true,
+  "description": "Node-based test suite for the GTO Drill Coach static build. Run from this directory after `npm install`.",
+  "scripts": {
+    "test": "node test-harness.js && node interaction-test.js && node data-test.js && node responsive-test.js"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.29.7",
+    "@babel/preset-react": "^7.29.7",
+    "css": "^3.0.0",
+    "jsdom": "^25.0.1",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0"
+  }
+}

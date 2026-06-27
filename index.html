@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>GTO Drill Coach — Daily Poker Training</title>
+  <meta name="description" content="A mobile-first daily poker study app. Preflop ranges, postflop quizzes, EV-loss scoring, daily missions. Off-table study only." />
+  <meta name="theme-color" content="#0d1117" />
+
+  <!-- Tailwind CSS (Play CDN, JIT, with custom theme config) -->
+  <script>
+    tailwind = { config: {
+      theme: {
+        extend: {
+          colors: {
+            navy: { 950: '#060a12', 900: '#0d1117', 800: '#161b24', 700: '#1e2533', 600: '#262f42' },
+            teal: { 400: '#00d4ff', 500: '#00b8e0', 600: '#009dc4' },
+            gold: { 400: '#ffb800', 500: '#e5a500' },
+            'gto-green': '#00cc66',
+            'gto-red': '#ff4444',
+          },
+          fontFamily: {
+            display: ['Space Grotesk', 'sans-serif'],
+            body: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+        },
+      },
+    }};
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="css/styles.css" />
+
+  <!-- React 18 + ReactDOM (UMD) -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+
+  <!-- Babel standalone for in-browser JSX transform -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <!-- Loading indicator shown until React mounts -->
+  <div id="initial-loader">
+    <div class="loader-spinner"></div>
+    <div>Loading GTO Drill Coach…</div>
+  </div>
+
+  <div id="root"></div>
+
+  <!-- Plain JS modules (no JSX) — attach to window namespaces -->
+  <script src="js/data.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/hand-parser.js"></script>
+  <script src="js/explain.js"></script>
+  <script src="js/store.js"></script>
+
+  <!-- JSX modules (Babel-transformed in browser).
+       IMPORTANT: @babel/preset-react defaults to the "automatic" JSX
+       runtime in modern Babel versions, which compiles JSX to code that
+       starts with a real ES `import` statement
+       (import { jsx as _jsx } from "react/jsx-runtime"). That import
+       statement is fatal when Babel standalone injects the transformed
+       code as a classic (non-module) <script> tag — it throws "Cannot
+       use import statement outside a module" and the script never runs,
+       which is exactly what leaves the app stuck on the loading screen.
+       The fix: register a custom preset that explicitly forces the
+       CLASSIC runtime (compiles JSX to plain React.createElement(...)
+       calls, no imports at all), and reference it via data-presets below
+       instead of the bare "react" preset name. -->
+  <script>
+    Babel.registerPreset('classic-react', {
+      presets: [[Babel.availablePresets['react'], { runtime: 'classic' }]],
+    });
+  </script>
+  <script type="text/babel" data-presets="classic-react" src="js/components.js"></script>
+  <script type="text/babel" data-presets="classic-react" src="js/page-dashboard.js"></script>
+  <script type="text/babel" data-presets="classic-react" src="js/page-preflop.js"></script>
+  <script type="text/babel" data-presets="classic-react" src="js/page-postflop.js"></script>
+  <script type="text/babel" data-presets="classic-react" src="js/page-plo.js"></script>
+  <script type="text/babel" data-presets="classic-react" src="js/page-missions.js"></script>
+  <script type="text/babel" data-presets="classic-react" src="js/page-progress.js"></script>
+  <script type="text/babel" data-presets="classic-react" src="js/page-review.js"></script>
+  <script type="text/babel" data-presets="classic-react" src="js/page-library.js"></script>
+  <script type="text/babel" data-presets="classic-react" src="js/page-settings-fairplay.js"></script>
+  <script type="text/babel" data-presets="classic-react" src="js/app.js"></script>
+</body>
+</html>
